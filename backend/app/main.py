@@ -71,3 +71,11 @@ async def health_check():
         "database": db_health,
         "ai_service": ai_health,
     }
+
+from app.models.user import User
+from app.routes.auth import router as auth_router
+
+# wherever your Beanie init_beanie() call is, add User to the document_models list:
+# await init_beanie(database=db, document_models=[User])
+
+app.include_router(auth_router)

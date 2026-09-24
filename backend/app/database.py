@@ -1,4 +1,6 @@
 import logging
+# FIX: Point to the actual user.py location inside app/models/
+from app.models.user import User
 from typing import Optional
 from motor.motor_asyncio import AsyncIOMotorClient
 import beanie
@@ -8,7 +10,6 @@ from app.config import get_settings
 logger = logging.getLogger(__name__)
 
 client: Optional[AsyncIOMotorClient] = None
-
 
 async def connect_to_mongo() -> dict:
     """Connect to MongoDB using Motor and initialize Beanie ODM."""
@@ -34,8 +35,8 @@ async def connect_to_mongo() -> dict:
         await client.admin.command("ping")
         db = client[settings.DB_NAME]
 
-        # In future phases, Beanie document models (User, Site, GenerationLog) will be registered here
-        document_models = []
+        # Register Beanie document models
+        document_models = [User]
         if document_models:
             await beanie.init_beanie(database=db, document_models=document_models)
 
@@ -45,7 +46,6 @@ async def connect_to_mongo() -> dict:
         logger.error("Failed to connect to MongoDB: %s", exc)
         return {"status": "connection_error", "error": str(exc)}
 
-
 async def close_mongo_connection() -> None:
     """Close MongoDB connection pool."""
     global client
@@ -53,7 +53,6 @@ async def close_mongo_connection() -> None:
         client.close()
         logger.info("Closed MongoDB connection.")
         client = None
-
 
 async def check_mongo_health() -> dict:
     """Check MongoDB live health status."""
