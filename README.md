@@ -56,6 +56,16 @@ uv run uvicorn app.main:app --reload --port 8000
 
 Verify backend health at [http://localhost:8000/health](http://localhost:8000/health).
 
+### Google Sign-In
+
+Set `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `GOOGLE_REDIRECT_URI` in
+`backend/.env`. The redirect URI must point to the running backend and match
+the URI registered in the Google OAuth client. For the default port, use
+`http://localhost:8000/api/auth/google/callback`; when using the current local
+API on port 8002, use
+`http://127.0.0.1:8002/api/auth/google/callback`. Restart the backend after
+changing these values.
+
 ### 2. Frontend Setup
 
 ```bash
