@@ -23,6 +23,9 @@ class Settings(BaseSettings):
     JWT_SECRET: str = "development_jwt_secret_key_velvet_invite_change_in_production"
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440
+    GOOGLE_CLIENT_ID: Optional[str] = None
+    GOOGLE_CLIENT_SECRET: Optional[str] = None
+    GOOGLE_REDIRECT_URI: Optional[str] = None
 
     # AI Provider (Anthropic Claude default per TRD §2.4)
     AI_PROVIDER: str = "anthropic"

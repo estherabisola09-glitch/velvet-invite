@@ -10,7 +10,8 @@ class PlanType(str, Enum):
 class User(Document):
     name: str
     email: EmailStr
-    password_hash: str
+    password_hash: str | None = None
+    google_id: str | None = None
     plan: PlanType = PlanType.free
     edits_used: int = 0
     edits_limit: int = 5
